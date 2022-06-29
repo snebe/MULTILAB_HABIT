@@ -18,9 +18,9 @@ imageRect = [0 0 RectWidth(var.rect) (RectHeight(var.rect) - 100)];
 imageDestRect = CenterRect([0 0 var.FRACTALdim var.FRACTALdim], imageRect);
 
 % scale text size to the screen used
-textRefBig   = 30;  % 40
-textRefSmall = 20;  % 30
-windowref_y = 1028; % we want some thing that correpond to a size of 30 on a screen with a y of 1560
+textRefBig   = 40;  
+textRefSmall = 30;  
+windowref_y = 1560; % we want some thing that correpond to a size of 30 on a screen with a y of 1560
 
 scaledSizeBig   = round((textRefBig * var.rect(4)) / windowref_y);
 scaledSizeSmall = round((textRefSmall * var.rect(4)) / windowref_y);
@@ -112,9 +112,9 @@ while exitDemo == false
     Screen('TextStyle', var.w, 1);
     
     if sum(sum(max(imageX))) > 0
-        DrawFormattedText(var.w, question, 'center',var.yUpperHigh, [0 0 0], 60, false, false, 2);  %1.2
+        DrawFormattedText(var.w, question, 'center',var.yUpperHigh, [0 0 0], 60, false, false, 1.2);  
     else
-        DrawFormattedText(var.w, question, 'center','center', [0 0 0], 60, false, false, 2);  %1.2
+        DrawFormattedText(var.w, question, 'center','center', [0 0 0], 60, false, false, 1.2); 
     end
 
     % Show image

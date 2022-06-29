@@ -7,6 +7,7 @@ KbName('UnifyKeyNames');% Make sure keyboard mapping is the same on all supporte
 KbCheck; WaitSecs(0.1); GetSecs; FlushEvents; % clean the keyboard memory Do dummy calls to GetSecs, WaitSecs, KbCheck to make sure they are loaded and ready when we need them - without delays
 rand('state',sum(100.*clock));% reset randperm to avoid the same seq
 
+Screen('Preference','SyncTestSettings' , 0.01, [], [], []); % Increasing the amount of tolerable noisiness in the synch test from 1 to 10ms, because Windows often has more noisy synch timing.
 whichScreen = max(Screen('Screens'));
 maxPriorityLevel = MaxPriority(whichScreen);
 Priority(maxPriorityLevel);
@@ -29,11 +30,11 @@ end
 %**************************************************************************
 % OPEN PST
 PsychDefaultSetup(1);% Here we call some default settings for setting up PTB
-screenNumber = max(Screen('Screens'))  % check if there are one or two screens and use the second screen when if there is one
+screenNumber = max(Screen('Screens'));  % check if there are one or two screens and use the second screen when if there is one
 imagingmode = kPsychNeedFastBackingStore;	% flip takes ages without this
 
 if var.real == 1
-     Screen('Preference', 'SkipSyncTests', 1); % we are not interested in precise timing
+     Screen('Preference', 'SkipSyncTests', 0); % we are not interested in precise timing
     [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180],[],[],2,[],[],imagingmode);
 else
     [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180], [20 20 1000 800]);
@@ -63,7 +64,7 @@ var.pulseKeyCode   = KbName('space'); % to start each run
 [var.screenXpixels, var.screenYpixels] = Screen('WindowSize', var.w);% Ge
 [var.xCenter, var.yCenter] = RectCenter(var.rect);% Get the centre coordinate of the windo
 
-ROIlt = 0.3;  %0.35 %from the left and from the top co-ordinates for left and top ROI
+ROIlt = 0.35;  %from the left and from the top co-ordinates for left and top ROI
 space = 0.10;
 
 var.yUpper = 0.25*var.screenYpixels;
@@ -100,7 +101,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEFAULT TEXT STYLE
 % scale text size to the screen used
-textref = 20;
+textref = 30;
 windowref_y = 1560; % we want some thing that correpond to a size of 30 on a screen with a y of 1560
 var.scaledSize = round((textref * var.rect(4)) / windowref_y);
 

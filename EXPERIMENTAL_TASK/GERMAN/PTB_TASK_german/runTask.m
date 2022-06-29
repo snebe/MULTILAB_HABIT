@@ -27,7 +27,7 @@ path(path, 'functions');
 
 % define variables
 % var.real = input('***input*** real experiment (=1) or testing (=0)?: '); % 1 = real experiment; 0 testing
-var.real = 1
+var.real = 1;
 
 % get the response device index
 [id, names] = GetKeyboardIndices();
@@ -44,7 +44,7 @@ var.deviceIndex = 0
 
 % enter the task variables
 % var.sub_ID = input('***input*** SUBJECT NUMBER: ');
-var.sub_ID = 1111;
+var.sub_ID = 1112;
 % var.session = input('***input*** SESSION NUMBER (1,2 or 3 session day): '); % 1,2,or 3 session
 var.session = 1;
 % var.training = input('***input*** TRAINING SCHEDULE (1= 1-day group, 3= 3-day group): '); % 1 day or 3 days
@@ -103,7 +103,7 @@ for i = 1:length(images)
     data.initialRatings.(names{i}) = likertScale(images{i}, question, [-5 -4 -3 -2 -1 0 1 2 3 4 5], var, foodRating1Text{3}, foodRating1Text{4});
    
     Screen('TextStyle', var.w, 1);
-    Screen('TextSize', var.w, 30);
+    Screen('TextSize', var.w, 36);
     DrawFormattedText(var.w, '+', 'center', 'center', [0 0 0]);
     Screen('Flip', var.w);
     WaitSecs(1+rand(1,1));
@@ -117,7 +117,7 @@ question = hungerRatingText{1};
 data.initialRatings.hunger = likertScale(0, question, [1 2 3 4 5 6 7 8 9 10], var, hungerRatingText{2}, hungerRatingText{3});
 
 Screen('TextStyle', var.w, 1);
-Screen('TextSize', var.w, 30);
+Screen('TextSize', var.w, 36);
 DrawFormattedText(var.w, '+', 'center', 'center', [0 0 0]);
 Screen('Flip', var.w);
 WaitSecs(1+rand(1,1));
