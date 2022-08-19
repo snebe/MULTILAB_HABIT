@@ -20,7 +20,7 @@ try
 %       PTB INITIALIZATION/PARAMETER SETUP
 %**************************************************************************
 
-clear all 
+% clear all 
 
 % add the function folder to the path just for this session
 path(path, 'functions');
@@ -40,11 +40,11 @@ for i = 1:length(id)
    
 end
 % var.deviceIndex = input('***input*** response device ID number (check list of devices above): ');
-var.deviceIndex = 0
+var.deviceIndex = 0;
 
 % enter the task variables
 % var.sub_ID = input('***input*** SUBJECT NUMBER: ');
-var.sub_ID = 1112;
+var.sub_ID = subj_ID;
 % var.session = input('***input*** SESSION NUMBER (1,2 or 3 session day): '); % 1,2,or 3 session
 var.session = 1;
 % var.training = input('***input*** TRAINING SCHEDULE (1= 1-day group, 3= 3-day group): '); % 1 day or 3 days

@@ -5,9 +5,9 @@ function [var, data] = counterbalance(var)
 % the counterbalancement is complete only if there the same two actions
 % possibles takes only the first three fractals from the original task 
 
+var.list = randi(12);
 
-if var.sub_ID == 1 || mod((var.sub_ID - 1),12) == 0;
-    data.list = 1;
+if var.list == 1
     
     var.sweet_fractal        = imread('images/fractal1.jpg');
     var.sweet_action         = var.leftKey;
@@ -19,8 +19,7 @@ if var.sub_ID == 1 || mod((var.sub_ID - 1),12) == 0;
     
     var.rest_fractal         = imread('images/fractal3.jpg');
       
-elseif var.sub_ID == 2 || mod((var.sub_ID - 2),12) == 0;
-    data.list = 2;
+elseif var.list == 2
     
     var.sweet_fractal        = imread('images/fractal1.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -32,8 +31,7 @@ elseif var.sub_ID == 2 || mod((var.sub_ID - 2),12) == 0;
 
     var.rest_fractal          = imread('images/fractal3.jpg');
     
-elseif var.sub_ID == 3 || mod((var.sub_ID - 3),12) == 0;
-    data.list = 3;
+elseif var.list == 3
     
     var.sweet_fractal        = imread('images/fractal2.jpg');
     var.sweet_action         = var.leftKey;
@@ -45,8 +43,7 @@ elseif var.sub_ID == 3 || mod((var.sub_ID - 3),12) == 0;
     
     var.rest_fractal         = imread('images/fractal3.jpg'); 
        
-elseif var.sub_ID == 4 || mod((var.sub_ID - 4),12) == 0;
-    data.list = 4;
+elseif var.list == 4
     
     var.sweet_fractal        = imread('images/fractal2.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -58,8 +55,7 @@ elseif var.sub_ID == 4 || mod((var.sub_ID - 4),12) == 0;
     
     var.rest_fractal         = imread('images/fractal3.jpg');
         
-elseif var.sub_ID == 5 || mod((var.sub_ID - 5),12) == 0;
-    data.list = 5;
+elseif var.list == 5
     
     var.sweet_fractal        = imread('images/fractal3.jpg');
     var.sweet_action         = var.leftKey;
@@ -71,8 +67,7 @@ elseif var.sub_ID == 5 || mod((var.sub_ID - 5),12) == 0;
     
     var.rest_fractal         = imread('images/fractal2.jpg');
     
-elseif var.sub_ID == 6 || mod((var.sub_ID - 6),12) == 0;
-    data.list = 6;
+elseif var.list == 6
     
     var.sweet_fractal        = imread('images/fractal3.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -84,8 +79,7 @@ elseif var.sub_ID == 6 || mod((var.sub_ID - 6),12) == 0;
     
     var.rest_fractal        = imread('images/fractal2.jpg');
         
-elseif var.sub_ID == 7 || mod((var.sub_ID - 7),12) == 0;
-    data.list = 7;
+elseif var.list == 7
     
     var.sweet_fractal        = imread('images/fractal1.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -97,8 +91,7 @@ elseif var.sub_ID == 7 || mod((var.sub_ID - 7),12) == 0;
     
     var.rest_fractal         = imread('images/fractal2.jpg');
         
-elseif var.sub_ID == 8 || mod((var.sub_ID - 8),12) == 0;
-    data.list = 8;
+elseif var.list == 8
     
     var.sweet_fractal        = imread('images/fractal1.jpg');
     var.sweet_action         = var.leftKey;
@@ -110,8 +103,7 @@ elseif var.sub_ID == 8 || mod((var.sub_ID - 8),12) == 0;
 
     var.rest_fractal         = imread('images/fractal2.jpg');
     
-elseif var.sub_ID == 9 || mod((var.sub_ID - 9),12) == 0;
-    data.list = 9;
+elseif var.list == 9
     
     var.sweet_fractal        = imread('images/fractal2.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -123,8 +115,7 @@ elseif var.sub_ID == 9 || mod((var.sub_ID - 9),12) == 0;
     
     var.rest_fractal         = imread('images/fractal1.jpg');
     
-elseif var.sub_ID == 10 || mod((var.sub_ID - 10),12) == 0;
-    data.list = 10;
+elseif var.list == 10
     
     var.sweet_fractal        = imread('images/fractal2.jpg');
     var.sweet_action         = var.leftKey;
@@ -136,8 +127,7 @@ elseif var.sub_ID == 10 || mod((var.sub_ID - 10),12) == 0;
     
     var.rest_fractal         = imread('images/fractal1.jpg');
        
-elseif var.sub_ID == 11 || mod((var.sub_ID - 11),12) == 0;
-    data.list = 11;
+elseif var.list == 11
     
     var.sweet_fractal        = imread('images/fractal3.jpg');
     var.sweet_action         = var.centerLeftKey;
@@ -149,8 +139,7 @@ elseif var.sub_ID == 11 || mod((var.sub_ID - 11),12) == 0;
     
     var.rest_fractal         = imread('images/fractal1.jpg');
     
-elseif var.sub_ID == 12 || mod((var.sub_ID - 12),12) == 0;
-    data.list = 12;
+elseif var.list == 12
     
     var.sweet_fractal        = imread('images/fractal3.jpg');
     var.sweet_action         = var.leftKey;
@@ -166,7 +155,7 @@ end
 
 
 % assign value de valued role to one of the snacks (alternate)
-if  mod((var.sub_ID-2),2) == 0
+if  mod((var.list),2) == 0
     
     var.devalued = 1; % devalue sweet for even numbers
     data.target  = 'sweet';
