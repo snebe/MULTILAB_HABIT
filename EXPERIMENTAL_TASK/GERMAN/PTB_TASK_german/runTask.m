@@ -27,7 +27,7 @@ path(path, 'functions');
 
 % define variables
 % var.real = input('***input*** real experiment (=1) or testing (=0)?: '); % 1 = real experiment; 0 testing
-var.real = 1;
+var.real = debug;
 
 % get the response device index
 [id, names] = GetKeyboardIndices();
@@ -57,9 +57,9 @@ var = inputCheck (var,2); % second check (after variable have been adjusted)
 
 % enter the snack the participant prefers
 % var.salty = input('***input*** SWEET REWARD (1=M&M, 2=Riesen; 3=Schokobon): ');
-var.salty = 1;
+% var.salty = 1;
 % var.sweet = input('***input*** SALTY REWARD (4=Erdnüsse, 5=Chips; 6=TUC): '); 
-var.sweet = 4;
+% var.sweet = 4;
 
 % initialize task paramenters
 [var, data] = initTask(var);
@@ -87,18 +87,18 @@ while 1
     
 end
 
-images           = {var.sweetImage, var.saltyImage};
-names            = {'sweet', 'savory'};
-questionX        = {var.sweetLabel; var.saltyLabel};
+images           = {var.sweetImage1,var.sweetImage2,var.sweetImage3,var.saltyImage4,var.saltyImage5,var.saltyImage6};
+names            = {'MMs','Riesen','Schokobons','Erdnuesse','Chips','TUC'};
+questionX        = {var.sweetLabel1,var.sweetLabel2,var.sweetLabel3,var.saltyLabel4,var.saltyLabel5,var.saltyLabel6};
 
 % Randomize the image list
 randomIndex     = randperm(length(images));
 images          = images(randomIndex);
 names           = names (randomIndex);
-questionX       = questionX(randomIndex);
+questionR       = questionX(randomIndex);
 
 for i = 1:length(images)
-    question = [foodRating1Text{1} char(questionX(i)) foodRating1Text{2}];
+    question = [foodRating1Text{1} char(questionR(i)) foodRating1Text{2}];
     
     data.initialRatings.(names{i}) = likertScale(images{i}, question, [-5 -4 -3 -2 -1 0 1 2 3 4 5], var, foodRating1Text{3}, foodRating1Text{4});
    
@@ -109,6 +109,24 @@ for i = 1:length(images)
     WaitSecs(1+rand(1,1));
     
 end
+
+snack_rating1=[data.initialRatings.MMs,data.initialRatings.Riesen,data.initialRatings.Schokobons];
+[snack_rating2,snack_rating3] = maxk(snack_rating1,1);
+var.sweet= snack_rating3;
+
+
+snack_rating4=[data.initialRatings.Erdnuesse,data.initialRatings.Chips,data.initialRatings.TUC];
+[snack_rating5,snack_rating6] = maxk(snack_rating4,1);
+var.salty = snack_rating6+3;
+
+var.sweetLabel = questionX{var.sweet};
+data.sweetID = var.sweetLabel;
+
+var.saltyLabel = questionX{var.salty};
+data.saltyID = var.saltyLabel;
+
+Screen('CloseAll');
+
 
 % Rate Hunger level
 
@@ -250,7 +268,7 @@ for i = 1:var.runs
         
         if var.condition(ii) == var.devalued
             data.training.value {trial}         = 'devalued';
-        elseif var.condition(ii) == 0;
+        elseif var.condition(ii) == 0
             data.training.value {trial}         = 'baseline';
         else
             data.training.value {trial}         = 'valued';

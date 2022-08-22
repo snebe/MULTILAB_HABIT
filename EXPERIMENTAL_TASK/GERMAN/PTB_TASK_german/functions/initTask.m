@@ -5,7 +5,7 @@ function [var,data]= initTask(var)
 AssertOpenGL; % Check for Opengl compatibility, abort otherwise:
 KbName('UnifyKeyNames');% Make sure keyboard mapping is the same on all supported operating systems (% Apple MacOS/X, MS-Windows and GNU/Linux)
 KbCheck; WaitSecs(0.1); GetSecs; FlushEvents; % clean the keyboard memory Do dummy calls to GetSecs, WaitSecs, KbCheck to make sure they are loaded and ready when we need them - without delays
-rand('state',sum(100.*clock));% reset randperm to avoid the same seq
+% rand('state',sum(100.*clock));% reset randperm to avoid the same seq
 
 Screen('Preference','SyncTestSettings' , 0.01, [], [], []); % Increasing the amount of tolerable noisiness in the synch test from 1 to 10ms, because Windows often has more noisy synch timing.
 whichScreen = max(Screen('Screens'));
@@ -35,13 +35,13 @@ imagingmode = kPsychNeedFastBackingStore;	% flip takes ages without this
 
 if var.real == 1
      Screen('Preference', 'SkipSyncTests', 0); % we are not interested in precise timing
-    [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180],[],[],2,[],[],imagingmode);
+    [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180],[20 20 1500 1000]);
 else
-    [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180], [20 20 1000 800]);
+    [var.w, var.rect] = Screen('OpenWindow',screenNumber, [180 180 180],[],[],2,[],[],imagingmode);
 end
 
 
-% Set blend function for alpha blending (for the png iamges)
+% Set blend function for alpha blending (for the png images)
 Screen('BlendFunction', var.w, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 %**************************************************************************
@@ -114,8 +114,8 @@ Screen('TextSize', var.w, var.scaledSize);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LOAD IMAGES OF SNACKS USED AS SWEET AND SALTY
 [var] = uploadImages (var);
-data.sweetID = var.sweetLabel;
-data.saltyID = var.saltyLabel;
+% data.sweetID = var.sweetLabel;
+% data.saltyID = var.saltyLabel;
 
 data.screen = var.rect;
 data.SubDate= datestr(now, 24); % Use datestr to get the date in the format dd/mm/yyyy
