@@ -7,7 +7,7 @@
 %__________________________________________________________________________
 %-------------------------------------------------------------------------
 % last modified on June 2017 before download from GitHub on 27.04.22
-% adapted by Stephan Nebe | Zürich, Switzerland | April/May 2022
+% adapted by Stephan Nebe | Zürich, Switzerland | April-August 2022
 
 % session = different sessions collected on different days
 % run = different runs run on the same days
@@ -26,7 +26,7 @@ try
 path(path, 'functions');
 
 % define variables
-% var.real = input('***input*** real experiment (=1) or testing (=0)?: '); % 1 = real experiment; 0 testing
+% var.real = input('***input*** real experiment (=0) or testing (=1)?: '); % 0 = real experiment; 1 testing
 var.real = debug;
 
 % get the response device index
@@ -63,7 +63,10 @@ var = inputCheck (var,2); % second check (after variable have been adjusted)
 
 % initialize task paramenters
 [var, data] = initTask(var);
-save(var.resultFile,'data');
+var.save_var = [var.save_path var.resultFile];
+save(var.save_var,'data');
+
+% fopen
 
 %load display text from files
 foodRating1Text = importdata('instructions/foodRating1.txt');
@@ -125,11 +128,17 @@ data.sweetID = var.sweetLabel;
 var.saltyLabel = questionX{var.salty};
 data.saltyID = var.saltyLabel;
 
-Screen('CloseAll');
+if var.devalued == 1
+    txtname = ['AA_Pool_deval_' num2str(pc_id) '_' data.sweetID '.txt'];
+else 
+    txtname = ['AA_Pool_deval_' num2str(pc_id) '_' data.saltyID '.txt'];
+end
+
+fID = fopen([var.save_path txtname],'wt');
+fclose(fID);
 
 
 % Rate Hunger level
-
 
 question = hungerRatingText{1};
 data.initialRatings.hunger = likertScale(0, question, [1 2 3 4 5 6 7 8 9 10], var, hungerRatingText{2}, hungerRatingText{3});
@@ -140,7 +149,7 @@ DrawFormattedText(var.w, '+', 'center', 'center', [0 0 0]);
 Screen('Flip', var.w);
 WaitSecs(1+rand(1,1));
 
-save (var.resultFile, 'data', '-append');
+save (var.save_var, 'data', '-append');
 
 
 %**************************************************************************
@@ -275,7 +284,7 @@ for i = 1:var.runs
         end
         
         % save at the end of each active block
-        save(var.resultFile, 'data', '-append');
+        save(var.save_var, 'data', '-append');
         
     end
     
@@ -402,10 +411,11 @@ if var.training == 1 || (var.training ==3 && var.session == 3)% only if it's the
         end    
     end
     
-    images           = {var.sweetImage, var.saltyImage};
-    names            = {'sweet', 'salty'};
-    questionX        = {var.sweetLabel; var.saltyLabel};
-    
+    images           = {var.sweetImage1,var.sweetImage2,var.sweetImage3,var.saltyImage4,var.saltyImage5,var.saltyImage6};
+    names            = {'MMs','Riesen','Schokobons','Erdnuesse','Chips','TUC'};
+    questionX        = {var.sweetLabel1,var.sweetLabel2,var.sweetLabel3,var.saltyLabel4,var.saltyLabel5,var.saltyLabel6};
+
+
     % Randomize the image list
     randomIndex      = randperm(length(images));
     images           = images(randomIndex);
@@ -435,7 +445,7 @@ if var.training == 1 || (var.training ==3 && var.session == 3)% only if it's the
     Screen('Flip', var.w);
     WaitSecs(1+rand(1,1));
     
-    save(var.resultFile, 'data', '-append');
+    save(var.save_var, 'data', '-append');
     
 end
 
@@ -558,7 +568,7 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
         end
         
         % save at the end of each extiction block
-        save(var.resultFile, 'data', '-append');
+        save(var.save_var, 'data', '-append');
         
     end
     

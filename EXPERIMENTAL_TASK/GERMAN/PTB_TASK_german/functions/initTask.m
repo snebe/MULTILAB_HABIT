@@ -14,18 +14,27 @@ Priority(maxPriorityLevel);
 
 %**************************************************************************
 % CREATE RESULT FILE FOR THE SESSION
-var.resultFile = (strcat('data/', 'sub-', num2str(var.sub_ID, '%02.0f'), '_task-HAB', num2str(var.training), 'day_session-',num2str(var.session,'%02.0f'),'.mat'));
+var.date=char(datetime('now','Format','yyyy-MM-dd'));
+var.hour=char(datetime('now','Format','HH-mm'));
+
+var.resultFile = (strcat('Pool_', var.sub_ID, '_', var.date, '_', var.hour, '.mat'));
+
+if var.real==0 
+    var.save_path='N:\client_write\Stephan\data\';
+else
+    var.save_path='data\';
+end
 
 % Check that the file does not already exist to avoid overwriting
-if exist(var.resultFile,'file')
-    resp=questdlg({['The file ' var.resultFile ' already exists.']; 'Do you want to overwrite it?'},...
-        'File exists warning','Cancel','Ok','Ok');
-    
-    if strcmp(resp,'Cancel') % Abort experiment if overwriting was not confirmed
-        error('Overwriting was not confirmed: experiment aborted!');
-    end
-    
-end
+% if exist(var.resultFile,'file')
+%     resp=questdlg({['The file ' var.resultFile ' already exists.']; 'Do you want to overwrite it?'},...
+%         'File exists warning','Cancel','Ok','Ok');
+%     
+%     if strcmp(resp,'Cancel') % Abort experiment if overwriting was not confirmed
+%         error('Overwriting was not confirmed: experiment aborted!');
+%     end
+%     
+% end
 
 %**************************************************************************
 % OPEN PST
@@ -118,7 +127,7 @@ Screen('TextSize', var.w, var.scaledSize);
 % data.saltyID = var.saltyLabel;
 
 data.screen = var.rect;
-data.SubDate= datestr(now, 24); % Use datestr to get the date in the format dd/mm/yyyy
-data.SubHour= datestr(now, 13); % Use datestr to get the time in the format hh:mm:ss
+% data.SubDate= datestr(now, 24); % Use datestr to get the date in the format dd/mm/yyyy
+% data.SubHour= datestr(now, 13); % Use datestr to get the time in the format hh:mm:ss
 
 end
