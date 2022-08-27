@@ -56,7 +56,7 @@ var = inputCheck (var,1); % first check
 var = inputCheck (var,2); % second check (after variable have been adjusted)
 
 % enter the snack the participant prefers
-% var.salty = input('***input*** SWEET REWARD (1=M&M, 2=Riesen; 3=Schokobon): ');
+% var.salty = input('***input*** SWEET REWARD (1=M&M, 2=Goldbaeren; 3=Schokokekse): ');
 % var.salty = 1;
 % var.sweet = input('***input*** SALTY REWARD (4=Erdnüsse, 5=Chips; 6=TUC): '); 
 % var.sweet = 4;
@@ -91,7 +91,7 @@ while 1
 end
 
 images           = {var.sweetImage1,var.sweetImage2,var.sweetImage3,var.saltyImage4,var.saltyImage5,var.saltyImage6};
-names            = {'MMs','Riesen','Schokobons','Erdnuesse','Chips','TUC'};
+names            = {'MMs','Goldbaeren','Schokokekse','Erdnuesse','Chips','TUC'};
 questionX        = {var.sweetLabel1,var.sweetLabel2,var.sweetLabel3,var.saltyLabel4,var.saltyLabel5,var.saltyLabel6};
 
 % Randomize the image list
@@ -113,7 +113,7 @@ for i = 1:length(images)
     
 end
 
-snack_rating1=[data.initialRatings.MMs,data.initialRatings.Riesen,data.initialRatings.Schokobons];
+snack_rating1=[data.initialRatings.MMs,data.initialRatings.Goldbaeren,data.initialRatings.Schokokekse];
 [snack_rating2,snack_rating3] = maxk(snack_rating1,1);
 var.sweet= snack_rating3;
 
@@ -423,7 +423,7 @@ if var.training == 1 || (var.training ==3 && var.session == 3)% only if it's the
     end
     
     images           = {var.sweetImage1,var.sweetImage2,var.sweetImage3,var.saltyImage4,var.saltyImage5,var.saltyImage6};
-    names            = {'MMs','Riesen','Schokobons','Erdnuesse','Chips','TUC'};
+    names            = {'MMs','Goldbaeren','Schokokekse','Erdnuesse','Chips','TUC'};
     questionX        = {var.sweetLabel1,var.sweetLabel2,var.sweetLabel3,var.saltyLabel4,var.saltyLabel5,var.saltyLabel6};
 
 
@@ -543,6 +543,7 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
     % the extinction run has 9 task blocks and 3 rest blocks.
     condition = [1  1  1  2  2  2  0  0  0 ]; % 1 = sweet 2 = salty; 0 = rest
     duration  = [20 20 20 20 20 20 20 20 20];% the duration of each block is 20s
+%     duration  = [5 5 5 5 5 5 5 5 5];% the duration of each block is 5s
     [var.condition, var.duration] = loadRandList(condition, duration);
     
     won_sweet_ext = 0;

@@ -12,12 +12,12 @@ snackTypeText = importdata('instructions/snackTypes.txt');
         var.sweetLabel1 = snackTypeText{1};
         
 %     case 2 % case participant likes Riesen the most
-        [var.sweetImage2, ~, alpha] = imread('images/Riesen.png');
+        [var.sweetImage2, ~, alpha] = imread('images/Goldbaeren.png');
         var.sweetImage2(:,:,4) = alpha;
         var.sweetLabel2 = snackTypeText{2};
 
 %     case 3  % case participant likes Schokobons the most
-        [var.sweetImage3, ~, alpha] = imread('images/Schokobon.png');
+        [var.sweetImage3, ~, alpha] = imread('images/Schokokekse.png');
         var.sweetImage3(:,:,4) = alpha;
         var.sweetLabel3 = snackTypeText{3};
         
