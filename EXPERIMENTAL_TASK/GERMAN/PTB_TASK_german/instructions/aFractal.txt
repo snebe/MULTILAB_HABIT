@@ -1,2 +1,3 @@
-eine geometrische Figur  
-(weiter mit dem Pfeil nach rechts, für die vorherige Instrukrion den Pfeil nach links)
+eine abstrakte Figur  
+
+(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)

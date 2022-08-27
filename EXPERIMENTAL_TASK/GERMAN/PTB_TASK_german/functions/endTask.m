@@ -13,7 +13,7 @@ while 1
     end   
 end
 
-save(var.resultFile, 'data', '-append');
+save(var.save_var, 'data', '-append');
 Screen('CloseAll');
 ShowCursor;
 RestrictKeysForKbCheck([]); %re-allow all keys to be read

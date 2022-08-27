@@ -124,9 +124,12 @@ var.salty = snack_rating6+3;
 
 var.sweetLabel = questionX{var.sweet};
 data.sweetID = var.sweetLabel;
+var.sweetImage = eval(sprintf('var.sweetImage%d',var.sweet));
 
 var.saltyLabel = questionX{var.salty};
 data.saltyID = var.saltyLabel;
+var.saltyImage = eval(sprintf('var.saltyImage%d',var.salty));
+
 
 if var.devalued == 1
     txtname = ['AA_Pool_deval_' num2str(pc_id) '_' data.sweetID '.txt'];
@@ -193,6 +196,9 @@ if var.session == 1 % we want this only for the first session
     KbWait(-3,2);    
 end
 
+% Screen('CloseAll')
+
+%% 
 
 %**************************************************************************
 %                      FREE OPERANT TRAINING                               %
@@ -240,6 +246,7 @@ for i = 1:var.runs
     % each learning run has 12 task blocks and eight rest blocks.
     condition = [1  1  1  1  1  1  2  2  2  2  2  2  0  0  0  0  0  0  0  0 ]; % 1 = sweet 2 = salty; 0 = rest
     duration  = [40 40 20 20 20 20 40 40 20 20 20 20 20 20 20 20 20 20 20 20];% the duration of each block is 20s for rest and 20 or 40 for active blocks 
+%     duration  = [10 10 5 5 5 5 10 10 5 5 5 5 5 5 5 5 5 5 5 5];% the duration of each block is 20s for rest and 20 or 40 for active blocks 
     [var.condition, var.duration] = loadRandList(condition, duration);
     
     for ii = 1:length(var.condition)
@@ -250,10 +257,8 @@ for i = 1:var.runs
         var.ref_end = var.ref_end + var.duration(ii); % 20 or 40 s
         data.training.onsets.block(trial) = GetSecs - var.time_MRI; % get onset
         
-        [RT, pressed_correct, pressed_all,...
-            ACC, RT_all, Button,...
-            reward, potential_rewards, potential_rewards_time,...
-            duration] = drawnActiveScreen (var,ii);
+        [RT, pressed_correct, pressed_all, ACC, RT_all, Button, reward, potential_rewards, ...
+            potential_rewards_time, duration] = drawnActiveScreen (var,ii);
         
         % log data
         data.training.stPressRT(trial)           = RT;
@@ -273,7 +278,7 @@ for i = 1:var.runs
         data.training.block    (trial)           = ii;
         data.training.run      (trial)           = i;
         data.training.session  (trial)           = var.session;
-        data.training.subID    (trial)           = var.sub_ID;
+        data.training.subID    (trial)           = string(var.sub_ID);
         
         if var.condition(ii) == var.devalued
             data.training.value {trial}         = 'devalued';
@@ -300,15 +305,15 @@ for i = 1:var.runs
     
     
     
-    message = [sessionWonText{1} num2str(won_sweet) ' ' var.sweetLabel sessionWonText{2} num2str(won_salty) ' ' var.saltyLabel ];
+    message = [sessionWonText{1} num2str(won_sweet) ' ' var.sweetLabel sessionWonText{2} num2str(won_salty) ' ' var.saltyLabel '   (weiter mit Leertaste)'];
     
     % Screen settings
     Screen('TextFont', var.w, 'Arial');
-    Screen('TextSize', var.w, var.scaledSize);
+    Screen('TextSize', var.w, 25);
     Screen('TextStyle', var.w, 1);
     
     % Print the instruction on the screen
-    DrawFormattedText(var.w, message, 'center', 'center', [0 0 0], 60);
+    DrawFormattedText(var.w, message, 'center', 'center', [0 0 0], 80);
     Screen(var.w, 'Flip');
     WaitSecs(0.4);
     while 1
@@ -385,8 +390,14 @@ end
 %**************************************************************************
 if var.training == 1 || (var.training ==3 && var.session == 3)% only if it's the last training session for the experimental group
     
-    disp ('Devaluation procedure is about to start...')
-    beep; % beeping because it requires the experimenter to be active
+    if var.devalued == 1
+        txtname = ['AA_Pool_deval_BRING_' num2str(pc_id) '_' data.sweetID '_NOW.txt'];
+    else
+        txtname = ['AA_Pool_deval_BRING_' num2str(pc_id) '_' data.saltyID '_NOW.txt'];
+    end
+
+    fID = fopen([var.save_path txtname],'wt');
+    fclose(fID);
     
     % show instruction for the devaluation procedure
     showBonus(var);
@@ -496,13 +507,14 @@ if var.training == 1 || (var.training ==3 && var.session == 3)% only if it's the
   
 end
 
+%% 
 
 %**************************************************************************
 %                           EXTINCTION TEST                              %
 %**************************************************************************
 
 if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's the last training session for the experimental group
-    disp ('Extinction procedure is about to start...')
+%     disp ('Extinction procedure is about to start...')
     
     %%%%%%%%%%%%%%%% sync procedure and time initialization %%%%%%%%%%%%%%%%%%%
     RestrictKeysForKbCheck([]); % re-allow all keys to be read as inputs
@@ -533,6 +545,9 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
     duration  = [20 20 20 20 20 20 20 20 20];% the duration of each block is 20s
     [var.condition, var.duration] = loadRandList(condition, duration);
     
+    won_sweet_ext = 0;
+    won_salty_ext = 0;
+
     for trial = 1:length(var.condition)
         
         % show block
@@ -547,7 +562,7 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
         data.extinction.raw_press(trial)           = pressed_correct;
         data.extinction.pressFreq(trial)           = pressed_correct/duration; % press per second
         data.extinction.raw_all_press(trial)       = pressed_all;
-        data.extinction.all_pressFreq(trial)       = pressed_correct/duration; % press per second
+        data.extinction.all_pressFreq(trial)       = pressed_all/duration; % press per second
         data.extinction.blockDetails(trial).ACC    = ACC;
         data.extinction.blockDetails(trial).RT     = RT_all;
         data.extinction.blockDetails(trial).button = Button;
@@ -555,9 +570,9 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
         
         data.extinction.condition(trial)           = var.condition(trial);
         data.extinction.block    (trial)           = trial;
-        data.extinction.run      (trial)           = i;
+%         data.extinction.run      (trial)           = i;
         data.extinction.session  (trial)           = var.session;
-        data.extinction.subID    (trial)           = var.sub_ID;
+        data.extinction.subID    (trial)           = string(var.sub_ID);
         
         if var.condition(trial) == var.devalued
             data.extinction.value {trial}          = 'devalued';  
@@ -570,8 +585,35 @@ if var.training == 1 || (var.training ==3 && var.session == 3) % only if it's th
         % save at the end of each extiction block
         save(var.save_var, 'data', '-append');
         
+        thisRunSweet = ( data.extinction.condition == 1 );
+        thisRunSalty = ( data.extinction.condition == 2 );
+    
+        if data.extinction.condition(trial) == 1
+            if data.extinction.raw_press(trial) > 19
+                won_sweet_ext = won_sweet_ext + 2;
+            elseif data.extinction.raw_press(trial) > 9
+                won_sweet_ext = won_sweet_ext + 1;
+            end
+        elseif data.extinction.condition(trial) == 2
+            if data.extinction.raw_press(trial) > 19
+                won_salty_ext = won_salty_ext + 2;
+            elseif data.extinction.raw_press(trial) > 9
+                won_salty_ext = won_salty_ext + 1;
+            end
+        end
+
     end
     
+    won_sweet_final = won_sweet + won_sweet_ext;
+    won_salty_final = won_salty + won_salty_ext;
+
+    txtname = ['AA_Pool_end_BRING_' num2str(pc_id) '_'  num2str(won_sweet_final) '_' data.sweetID '_' num2str(won_salty_final) '_' data.saltyID '.txt'];
+
+    fID = fopen([var.save_path txtname],'wt');
+    fclose(fID);
+
+    
+
 end
 
 

@@ -1,2 +1,3 @@
 Wenn Sie die passende Taste drücken, erscheint ein grauer Kreis. 
-(weiter: rechter Pfeil, zurück: linker Pfeil)
+
+(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)

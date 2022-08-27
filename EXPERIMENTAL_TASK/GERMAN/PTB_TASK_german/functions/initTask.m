@@ -79,7 +79,7 @@ space = 0.10;
 var.yUpper = 0.25*var.screenYpixels;
 var.yLower = 0.75*var.screenYpixels;
 var.yUpperHigh = 0.10*var.screenYpixels;
-var.yLowerLow  = 0.90*var.screenYpixels;
+var.yLowerLow  = 0.85*var.screenYpixels;
 
 var.squareXpos = [var.screenXpixels * ROIlt var.screenXpixels * (ROIlt+1*space) var.screenXpixels * (ROIlt+2*space) var.screenXpixels * (ROIlt+3*space)]; % Define horizontal ROIs position (0.25 0.75 were the original settings)
 

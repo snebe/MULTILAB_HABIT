@@ -1,2 +1,3 @@
-Jedes dieser Bilder ist mit einer bestimmten Taste und einer bestimmten Belohnung verbunden. (weiter mit rechts, zurück mit links)
+Jedes dieser Bilder ist mit einer bestimmten Taste und einer bestimmten Belohnung verbunden. 
+(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)
 

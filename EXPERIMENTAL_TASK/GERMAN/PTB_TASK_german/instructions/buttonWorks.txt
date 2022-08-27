@@ -1,2 +1,3 @@
 Schauen wir nun, was es mit den gelben Kästchen auf sich hat. 
-(weiter mit rechts, zurück mit links)
+
+(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)

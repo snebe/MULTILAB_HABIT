@@ -581,7 +581,7 @@ end
         
     end
 
-    function [] = Instructions_MP_22 (instrDisp, text, position, var)  
+    function [] = Instructions_MP_22 (instrDisp, text, position, var)  %WEITER
         
         % get image
         reward_text  = Screen('MakeTexture',var.w, var.sweetImage);
@@ -604,7 +604,7 @@ end
             head-[instrDisp.triangle,0]                   % right corner
             head-[0,instrDisp.triangle] ];                % vertex
         Screen('FillPoly', var.w,[200 0 0], points);
-        DrawFormattedText(var.w, '(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)', 'center', var.yLowerLow+15, [0 0 0], 80, [], [], 1.2); 
+        DrawFormattedText(var.w, text.Fractalmeans , 'center', var.yUpper, [0 0 0], 80, [], [], 1.2); 
         Screen('Flip',var.w);
         
     end

@@ -2,4 +2,4 @@ Sobald Sie das Experiment heute beendet haben, sollen Sie Ihre gewonnenen Belohn
 Die Menge auf dem Bild stimmt nicht genau mit der Menge überein, die Sie tatsächlich erhalten; das Verhältnis ist aber proportional. 
 Je mehr Belohnungen Sie also im Experiment verdienen, desto mehr haben Sie am Ende.
 
-(weiter mit rechts, zurück mit links)
+(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)

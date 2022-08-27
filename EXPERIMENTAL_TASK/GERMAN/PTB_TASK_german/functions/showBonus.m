@@ -8,11 +8,11 @@ bonusText = importdata('instructions/bonus.txt');
 % get the picture and text
 if var.devalued == 1 % target for devaluation will be sweet
       target_pict = var.sweetImage;
-      message     = [bonusText{1} var.sweetLabel bonusText{2}];
+      message     = [bonusText{1} var.sweetLabel bonusText{2:4}];
        
 elseif var.devalued == 2 % target for devaluation will be savory
      target_pict   = var.saltyImage;
-     message       = [bonusText{1} var.saltyLabel bonusText{2}];
+     message       = [bonusText{1} var.saltyLabel bonusText{2:4}];
      
 end
 
@@ -22,13 +22,13 @@ positionPicture    = CenterRectOnPointd(baseRect, var.xCenter, var.yCenter);
 
 % format text
 Screen('TextFont', var.w, 'Arial');
-Screen('TextSize', var.w, var.scaledSize);
+Screen('TextSize', var.w, 25);
 Screen('TextStyle', var.w, 1);
 
 % prepare the bonus screen
 target_text  = Screen('MakeTexture',var.w, target_pict);
 Screen('DrawTexture', var.w, target_text ,[], positionPicture );
-DrawFormattedText(var.w, message , 'center', var.yUpper, [0 0 0], 60);
+DrawFormattedText(var.w, message , 'center', var.yUpper, [0 0 0], 80);
    
 % show the screen
 Screen('Flip',var.w);
