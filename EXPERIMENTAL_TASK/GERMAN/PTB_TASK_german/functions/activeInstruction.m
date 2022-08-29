@@ -604,7 +604,7 @@ end
             head-[instrDisp.triangle,0]                   % right corner
             head-[0,instrDisp.triangle] ];                % vertex
         Screen('FillPoly', var.w,[200 0 0], points);
-        DrawFormattedText(var.w, '(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)', 'center', var.yLowerLow+15, [0 0 0], 80, [], [], 1.2); 
+        DrawFormattedText(var.w, '(weiter mit Pfeil nach rechts; zurück mit Pfeil nach links)', 'center', var.yLowerLow+20, [0 0 0], 80, [], [], 1.2); 
         Screen('Flip',var.w);
         
     end

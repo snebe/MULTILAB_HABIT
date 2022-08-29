@@ -23,7 +23,11 @@ try
 % clear all 
 
 % add the function folder to the path just for this session
-path(path, 'functions');
+% path(path, 'functions');
+oldpath = path;
+fnDir = [cd '\functions'];
+path(path,fnDir);
+
 
 % define variables
 % var.real = input('***input*** real experiment (=0) or testing (=1)?: '); % 0 = real experiment; 1 testing
@@ -623,6 +627,7 @@ end
 %**************************************************************************
 
 data = endTask(var, data);
+path(oldpath);
 
 catch % This "catch" section executes in case of an error in the "try" above.  
     % Importantly, it closes the onscreen window if it's open.

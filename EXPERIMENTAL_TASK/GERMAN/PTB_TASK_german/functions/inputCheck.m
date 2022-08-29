@@ -51,7 +51,7 @@ end
 %% if session is not equal one then check that the previous file is in the
 % data folder
 
-%FlushEvents();
+ListenChar(0);
 KbQueueCreate(var.deviceIndex);
 KbQueueStart(var.deviceIndex);
 reenter = 0;
